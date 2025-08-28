@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Conversor Euros ↔ Pesetas</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; 
+    display: flex;
+    justify-content: center; /* centra el contenedor */
+    margin-top: 50px; /* separación top */
+  }
+
+  /* contenedor principal */
+  .contenedor {
+    background-color: #ffc0cb;
+    padding: 20px 30px; /* espacio interno */
+    border-radius: 10px; /* bordes redondeados */
+    width: 400px; /* ancho fijo */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* sombra */
+  }
+
+  /* Título */
+  h2 {
+    text-align: center; /* centra el texto */
+    margin-bottom: 20px; /* separación debajo */
+    color: #11ccbc; 
+  }
+
+  .linea {
+    display: flex; /* flexbox */
+    align-items: center; /* alinea verticalmente */
+    margin-bottom: 15px; /* separación entre líneas */
+    gap: 10px; /* espacio */
+  }
+
+  input {
+    width: 80px; 
+    padding: 5px; /* relleno interno */
+    font-size: 16px; /* tamaño de fuente */
+  }
+
+  button {
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer; /* cambia el cursor al pasar por encima */
+    border: none;
+    border-radius: 5px;
+    background-color: #ff69b4; 
+    color: white; 
+  }
+
+  /* Cambio de color al pasar el ratón por el botón */
+  button:hover {
+    background-color: #11ccbc;
+  }
+
+  /* Estilo del resultado */
+  .resultado {
+    min-width: 100px; /* espacio mínimo */
+    font-weight: bold; 
+    color: #20bd20; 
+  }
+</style>
+</head>
+<body>
+
+<!-- Contenedor principal -->
+<div class="contenedor">
+  <h2>Conversor</h2>
+
+  <!-- Línea 1: Conversión de Pesetas a Euros -->
+  <div class="linea">
+    <label for="pesetas">Pesetas:</label> <!-- Etiqueta para el input -->
+    <input type="number" id="pesetas"> <!-- Campo donde para la cantidad de pesetas -->
+    <button id="aEuros">Convertir a Euros</button> 
+    <span class="resultado" id="resultadoEuros">€ 0.00</span> 
+  </div>
+
+  <!-- Línea 2: Conversión de Euros a Pesetas -->
+  <div class="linea">
+    <label for="euros">Euros:</label>
+    <input type="number" id="euros">
+    <button id="aPesetas">Convertir a Pesetas</button> 
+    <span class="resultado" id="resultadoPesetas">ptas 0.00</span> 
+  </div>
+</div>
+
+<script>
+  // Constante del tipo de cambio
+  const TIPO_CAMBIO = 166.386; // 1 Euro = 166.386 Pesetas
+
+  // Obtenemos referencias a los campos de entrada
+  const pesetasInput = document.getElementById('pesetas');
+  const eurosInput = document.getElementById('euros');
+
+  // Obtenemos referencias a los elementos donde mostraremos los resultados
+  const resultadoEuros = document.getElementById('resultadoEuros');
+  const resultadoPesetas = document.getElementById('resultadoPesetas');
+
+  // Agregamos el evento click al botón "Convertir a Euros"
+  document.getElementById('aEuros').addEventListener('click', () => {
+    const pesetas = parseFloat(pesetasInput.value); // obtenemos la cantidad de pesetas y la convertimos a número
+    if (!isNaN(pesetas)) { // verificamos que sea un número válido
+      const euros = pesetas / TIPO_CAMBIO; // calculamos los euros
+      resultadoEuros.textContent = `€ ${euros.toFixed(2)}`; // mostramos el resultado con 2 decimales
+    }
+  });
+
+  // Agregamos el evento click al botón "Convertir a Pesetas"
+  document.getElementById('aPesetas').addEventListener('click', () => {
+    const euros = parseFloat(eurosInput.value);
+    if (!isNaN(euros)) { 
+      const pesetas = euros * TIPO_CAMBIO; 
+      resultadoPesetas.textContent = `ptas ${pesetas.toFixed(2)}`; 
+    }
+  });
+</script>
+
+</body>
+</html>
